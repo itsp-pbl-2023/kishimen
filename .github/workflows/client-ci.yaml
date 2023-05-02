@@ -7,6 +7,8 @@ on:
     paths:
       - 'frontend'
   pull_request:
+    paths:
+      - 'frontend'
 
 env:
   NODE_VERSION: '20'
