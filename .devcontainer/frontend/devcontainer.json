@@ -1,0 +1,17 @@
+{
+  "name": "kishimen frontend",
+  "dockerComposeFile": ["../../compose.yaml"],
+  "service": "frontend",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace/kishimen/frontend",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "vue.volar"
+      ]
+    }
+  }
+}

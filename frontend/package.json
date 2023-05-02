@@ -22,6 +22,7 @@
     "autoprefixer": "^10.4.8",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "eslint-plugin-vue": "^9.4.0",
     "prettier": "^2.7.1",
     "sass": "^1.54.7",

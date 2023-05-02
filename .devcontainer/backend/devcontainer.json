@@ -1,0 +1,14 @@
+{
+  "name": "kishimen backend",
+  "dockerComposeFile": ["../../compose.yaml"],
+  "service": "backend",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace/kishimen/backend",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  }
+}
