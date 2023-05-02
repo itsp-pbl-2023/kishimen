@@ -1,4 +1,4 @@
-FROM node:16.17.0 as build
+FROM node:20.0.0 as build
 
 WORKDIR /workspace/kishimen/frontend
 
