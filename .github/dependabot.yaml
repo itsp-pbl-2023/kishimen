@@ -1,0 +1,37 @@
+version: 2
+updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "00:00"
+    timezone: Asia/Tokyo
+- package-ecosystem: docker
+  directory: "/backend"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "00:00"
+    timezone: Asia/Tokyo
+- package-ecosystem: "pip"
+  directory: "/backend"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "00:00"
+    timezone: Asia/Tokyo
+- package-ecosystem: docker
+  directory: "/frontend"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "00:00"
+    timezone: Asia/Tokyo
+- package-ecosystem: npm
+  directory: "/frontend"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "00:00"
+    timezone: Asia/Tokyo
