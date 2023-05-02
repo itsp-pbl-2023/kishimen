@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "esnext",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "paths": {
+      "/@/*": ["src/*"]
+    }
+  },
+  "vueCompilerOptions": {
+    "strictTemplates": true
+  }
+}
