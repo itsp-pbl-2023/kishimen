@@ -14,7 +14,8 @@ export default defineConfig({
         target: 'https://example.com',
         changeOrigin: true
       }
-    }
+    },
+    host: true,
   },
   plugins: [vue()]
 })
