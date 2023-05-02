@@ -20,7 +20,7 @@
     "@typescript-eslint/parser": "^5.36.1",
     "@vitejs/plugin-vue": "^3.0.3",
     "autoprefixer": "^10.4.8",
-    "eslint": "^8.23.0",
+    "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "eslint-plugin-vue": "^9.11.0",
