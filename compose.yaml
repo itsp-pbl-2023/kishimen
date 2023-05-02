@@ -9,3 +9,15 @@ services:
       - ./frontend:/workspace/kishimen/frontend
     stdin_open: true
     tty: true
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/workspace/kishimen/backend
+    expose:
+      - "8000"
+    stdin_open: true
+    tty: true
