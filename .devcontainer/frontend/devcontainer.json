@@ -4,6 +4,7 @@
   "service": "frontend",
   "shutdownAction": "none",
   "workspaceFolder": "/workspace/kishimen/frontend",
+  "postCreateCommand": "npm ci --unsafe-perm",
   "customizations": {
     "vscode": {
       "extensions": [
