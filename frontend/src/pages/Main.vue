@@ -1,17 +1,19 @@
 <template>
-  <routes />
-  <div>Index Page</div>
-  <img alt="Vue logo" src="/@/assets/logo.png" />
+  test
+  <CapturedVideo> </CapturedVideo>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import Routes from '/@/components/Routes.vue'
+<script setup lang="ts">
+import CapturedVideo from '/@/components/CapturedVideo.vue.js'
+//import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'Index',
+/*export default defineComponent({
+  name: 'MainPage',
   components: {
-    Routes
+    'captured-video': CapturedVideo
+  },
+  setup(){
+
   }
-})
+})*/
 </script>
