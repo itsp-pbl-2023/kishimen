@@ -4,7 +4,6 @@
   "service": "frontend",
   "shutdownAction": "none",
   "workspaceFolder": "/workspace/kishimen/frontend",
-  "onCreateCommand": "npm install",
   "customizations": {
     "vscode": {
       "extensions": [
