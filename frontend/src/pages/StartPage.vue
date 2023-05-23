@@ -1,12 +1,13 @@
 <template>
-  <routes />
   <div class="container">
-    <div class="left-side">
-      <div class="discription"></div>
-      <div class="start-botan"></div>
-    </div>
-    <div class="right-side">
-      <div class="image"></div>
+    <div class="flex-container">
+      <div class="left-side">
+        <div class="discription"></div>
+        <button class="start-button">Lets start!</button>
+      </div>
+      <div class="right-side">
+        <div class="image"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,35 +26,49 @@ export default defineComponent({
 
 <style>
 .container {
-  display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: red;
+  /* background-color: red; */
 }
-.left-side {
-  width: 50%;
+
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
   height: 100%;
+}
+
+.left-side {
+  padding: 5% 0 5% 0;
+  width: 45%;
+  height: 90%;
+  color: pink;
   /* background-color: black; */
 }
 .right-side {
-  width: 50%;
-  height: 50%;
+  padding: 5% 0 5% 0;
+  width: 45%;
+  height: 90%;
   /* background-color: green; */
 }
 
 .discription {
-  width: 40%;
+  width: 100%;
   height: 50%;
   background-color: blue;
 }
 .image {
-  width: 60%;
-  height: 60%;
+  width: 100%;
+  height: 100%;
   background-color: black;
 }
-.start-botan {
-  width: 40%;
-  height: 50%;
-  background-color: pink;
+.start-button {
+  margin-top: 15%;
+  width: 100%;
+  height: 20%;
+  font-size: 50px;
+  border-radius: 30px;
+  border-color: #ff971d;
+  /* background-color: pink; */
 }
 </style>
