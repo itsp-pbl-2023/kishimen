@@ -5,10 +5,10 @@ on:
     branches:
       - 'main'
     paths:
-      - 'frontend'
+      - 'frontend/**'
   pull_request:
     paths:
-      - 'frontend'
+      - 'frontend/**'
 
 env:
   NODE_VERSION: '20'
