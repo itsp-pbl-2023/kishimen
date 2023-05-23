@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '../pages/IndexPage.vue'
 import Hello from '../pages/HelloPage.vue'
-import Main from '/@/pages/main.vue'
+import MainPage from '../pages/MainPage.vue'
 
 export const routerHistory = createWebHistory()
 
@@ -21,7 +21,7 @@ export default createRouter({
     {
       path: '/main',
       name: 'main',
-      component: Main
+      component: MainPage
     }
   ]
 })
