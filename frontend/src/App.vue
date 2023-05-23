@@ -1,22 +1,16 @@
 <template>
-  <div class="d-flex min-vh-100">
-    <main class="p-3 min-vh-100">
-      <router-view />
-    </main>
+  <div :class="$style.app">
+    <router-view />
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-
-const width = ref(window.innerWidth)
-const handleResize = () => {
-  width.value = window.innerWidth
+<style lang="scss" module>
+.app {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
 }
-onMounted(() => {
-  window.addEventListener('resize', handleResize)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize)
-})
-</script>
+</style>
