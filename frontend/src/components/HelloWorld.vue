@@ -7,28 +7,23 @@
   </p>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script setup lang="ts">
+import { computed } from 'vue'
 import { useStore } from '/@/store'
 
-export default defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: {
-      type: String,
-      required: true
-    }
-  },
-  setup() {
-    const store = useStore()
-    const count = computed(() => store.countString)
-    const { increment } = store
-    return { count, increment }
+defineProps({
+  msg: {
+    type: String,
+    required: true
   }
 })
+
+const store = useStore()
+const count = computed(() => store.countString)
+const { increment } = store
 </script>
 
-<style module>
+<style lang="scss" module>
 .re {
   font-weight: bold;
 }
