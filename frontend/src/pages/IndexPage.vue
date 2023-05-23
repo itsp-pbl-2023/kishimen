@@ -4,14 +4,6 @@
   <img alt="Vue logo" src="/@/assets/logo.png" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import Routes from '/@/components/Routes.vue'
-
-export default defineComponent({
-  name: 'Index',
-  components: {
-    Routes
-  }
-})
 </script>
