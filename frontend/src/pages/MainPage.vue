@@ -2,7 +2,6 @@
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.video_box">
-        <img :src="`data:image/png;base64,${imageBase64}`" />
         <captured-video
           @capture="(newImageBase64: string) => {
             imageBase64 = newImageBase64
