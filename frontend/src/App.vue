@@ -1,11 +1,22 @@
 <template>
-  <router-view />
+  <div class="d-flex min-vh-100">
+    <main class="p-3 min-vh-100">
+      <router-view />
+    </main>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-export default defineComponent({
-  name: 'App'
+const width = ref(window.innerWidth)
+const handleResize = () => {
+  width.value = window.innerWidth
+}
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
 })
 </script>
