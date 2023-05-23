@@ -8,8 +8,9 @@
         <p :class="$style.content_text">音楽名 情熱大陸aaaaaaaaaaaaaa</p>
         <img
           :class="$style.bottun_play"
-          src="/bottun_play.png"
+          :src="`/bottun_${bottunState}.png`"
           alt="再生ボタン"
+          @click="clickBottun"
         />
         <span :class="$style.space_padding"></span>
       </div>
@@ -19,6 +20,16 @@
 
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
+import { ref } from 'vue'
+const bottunState = ref('play')
+
+function clickBottun() {
+  if (bottunState.value === 'play') {
+    bottunState.value = 'stop'
+  } else {
+    bottunState.value = 'play'
+  }
+}
 </script>
 <style lang="scss" module>
 .container {
@@ -52,7 +63,7 @@ import CapturedVideo from '/@/components/CapturedVideo.vue'
   overflow: hidden;
 }
 .bottun_play {
-  height: 100%;
+  height: 65%;
   margin: 0 auto;
 }
 .space_padding {
