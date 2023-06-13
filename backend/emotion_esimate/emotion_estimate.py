@@ -1,6 +1,7 @@
+import base64
 from fer import FER
+import numpy as np
 import matplotlib.pyplot as plt
-
 import cv2
 
 
@@ -14,26 +15,32 @@ def capture_image(dst_path: str) -> None:
     capture = cv2.VideoCapture(deviceid)
 
     ret, frame = capture.read()
-    # cv2.imshow("test", frame)
     cv2.imwrite(dst_path, frame)
 
 
-def emotion_estimate(image: str) -> None:
+def convert_to_ndarray(base64_data: str) -> str:
+    """
+    base64をデコードし、そのバイナリーデータをndarray型に変換する
+    """
+    png_bytes = base64.b64decode(base64_data)
+    image_ndarray = np.frombuffer(png_bytes, dtype=np.uint8)
+    img = cv2.imdecode(image_ndarray, flags=cv2.IMREAD_COLOR)
+    return img
+
+
+def emotion_estimate(base64_data: str) -> str:
     """
     画像から感情推定する
     Args:
         image : 感情推定する画像のパス
     """
-    test_image_one = plt.imread(image)
+    # バイナリーデータをndarrayに変換
     emo_detector = FER(mtcnn=True)
-    # Capture all the emotions on the image
-    captured_emotions = emo_detector.detect_emotions(test_image_one)
-    # Print all captured emotions with the image
-    print(captured_emotions)
-    plt.imshow(test_image_one)
+    image = convert_to_ndarray(base64_data)
+    # print(image.shape)
+    captured_emotions = emo_detector.detect_emotions(image)
 
-    dominant_emotion, emotion_score = emo_detector.top_emotion(test_image_one)
-    print(dominant_emotion, emotion_score)
+    return captured_emotions[0]["emotions"]
 
 
 if __name__ == "__main__":
