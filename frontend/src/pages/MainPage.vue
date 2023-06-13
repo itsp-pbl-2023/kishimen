@@ -12,6 +12,7 @@
           alt="再生ボタン"
           @click="clickBottun"
         />
+        <audio ref="music" src="../../public/music/yume.mp3" controls hidden></audio>
         <span :class="$style.space_padding"></span>
       </div>
     </div>
@@ -22,14 +23,18 @@
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import { ref } from 'vue'
 const bottunState = ref('play')
+const music = ref<HTMLAudioElement>()
 
 function clickBottun() {
   if (bottunState.value === 'play') {
     bottunState.value = 'stop'
+    music.value?.play()
   } else {
     bottunState.value = 'play'
+    music.value?.pause()
   }
 }
+
 </script>
 <style lang="scss" module>
 .container {
