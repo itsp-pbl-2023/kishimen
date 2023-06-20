@@ -12,19 +12,41 @@
           alt="再生ボタン"
           @click="clickBottun"
         />
-        <audio ref="music" src="../../public/music/yume.mp3" controls hidden></audio>
+        <audio
+          ref="music"
+          :src="`../../public/music/${musicURL}`"
+          controls
+          hidden
+        ></audio>
         <span :class="$style.space_padding"></span>
       </div>
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import { ref } from 'vue'
 const bottunState = ref('play')
 const music = ref<HTMLAudioElement>()
-
+type Emotion = {
+  angry: number
+  disgust: number
+  fear: number
+  happy: number
+  sad: number
+  surprise: number
+  neutral: number
+}
+const emotion = {
+  angry: 0.18,
+  disgust: 0.0,
+  fear: 0.07,
+  happy: 0.09,
+  sad: 0.66,
+  surprise: 1.0,
+  neutral: 0.01
+} as Emotion
+let musicURL = selectMusic(emotion)
 function clickBottun() {
   if (bottunState.value === 'play') {
     bottunState.value = 'stop'
@@ -34,7 +56,32 @@ function clickBottun() {
     music.value?.pause()
   }
 }
-
+function selectMusic(obj: Emotion) {
+  let max = -1
+  let emotion = 'angry' as keyof Emotion
+  ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
+    if (obj[key] > max) {
+      max = obj[key]
+      emotion = key
+    }
+  })
+  switch (emotion) {
+    case 'angry':
+      return 'blackout_piano1.mp3'
+    case 'disgust':
+      return 'blackout_piano1.mp3'
+    case 'fear':
+      return 'blackout_piano1.mp3'
+    case 'happy':
+      return 'blackout_piano2.mp3'
+    case 'sad':
+      return 'sample.mp3'
+    case 'surprise':
+      return 'opening1.mp3'
+    case 'neutral':
+      return 'opening1.mp3'
+  }
+}
 </script>
 <style lang="scss" module>
 .container {
