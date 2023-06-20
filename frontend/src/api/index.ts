@@ -10,10 +10,9 @@ export const uploadImageToAPI = async (imageBase64: string) => {
     body: JSON.stringify(payload)
   })
     .then(response => {
-      console.log(response)
       return response.json()
     })
     .catch(err => {
-      console.log(err)
+      return { message: err }
     })
 }
