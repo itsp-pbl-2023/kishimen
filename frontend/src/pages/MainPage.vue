@@ -4,7 +4,7 @@
       <div :class="$style.video_box">
         <img :src="`data:image/png;base64,${imageBase64}`" />
         <captured-video
-          @capture="(newImageBase64: string) => imageBase64 = newImageBase64"
+          @capture="(newImageBase64: string) => apiResponse = uploadImageToAPI(newImageBase64)"
         >
         </captured-video>
       </div>
@@ -29,6 +29,8 @@
 </template>
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
+import { uploadImageToAPI } from '/@/api/index'
+
 import { ref } from 'vue'
 const bottunState = ref('play')
 const music = ref<HTMLAudioElement>()
@@ -88,6 +90,7 @@ function selectMusic(obj: Emotion) {
 }
 
 let imageBase64 = ref<string>()
+let apiResponse = ref<object>()
 </script>
 <style lang="scss" module>
 .container {
