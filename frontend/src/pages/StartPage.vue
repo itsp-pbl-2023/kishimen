@@ -59,7 +59,7 @@ const goMainpage = () => {
 }
 </script>
 
-<style>
+<style lang="scss">
 .container {
   width: 100vw;
   height: 100vh;
