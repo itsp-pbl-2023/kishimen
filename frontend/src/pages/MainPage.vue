@@ -2,7 +2,11 @@
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.video_box">
-        <captured-video> </captured-video>
+        <img :src="`data:image/png;base64,${imageBase64}`" />
+        <captured-video
+          @capture="(newImageBase64: string) => imageBase64 = newImageBase64"
+        >
+        </captured-video>
       </div>
       <div :class="$style.under_stick">
         <p :class="$style.content_text">音楽名 情熱大陸aaaaaaaaaaaaaa</p>
@@ -82,6 +86,8 @@ function selectMusic(obj: Emotion) {
       return 'opening1.mp3'
   }
 }
+
+let imageBase64 = ref<string>()
 </script>
 <style lang="scss" module>
 .container {
