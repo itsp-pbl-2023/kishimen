@@ -45,7 +45,7 @@ const captureVideo = () => {
   canvas.value
     ?.getContext('2d')
     ?.drawImage(video.value, 0, 0, cameraWidth, cameraHeight)
-  return canvas.value?.toDataURL('image/png')
+  return canvas.value?.toDataURL('image/png').replace(/^.*,/, '')
 }
 setInterval(() => {
   const imageURL = captureVideo()

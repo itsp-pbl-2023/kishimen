@@ -2,8 +2,11 @@
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.video_box">
-        <img :src="imageURL" />
-        <captured-video @capture="setImage"> </captured-video>
+        <img :src="`data:image/png;base64,${imageBase64}`" />
+        <captured-video
+          @capture="(newImageBase64: string) => imageBase64 = newImageBase64"
+        >
+        </captured-video>
       </div>
       <div :class="$style.under_stick">
         <p :class="$style.content_text">音楽名 情熱大陸aaaaaaaaaaaaaa</p>
@@ -32,10 +35,7 @@ function clickBottun() {
   }
 }
 
-let imageURL = ref<string>()
-const setImage = (newImageURL: string) => {
-  imageURL.value = newImageURL
-}
+let imageBase64 = ref<string>()
 </script>
 <style lang="scss" module>
 .container {
