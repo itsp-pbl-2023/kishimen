@@ -4,7 +4,10 @@
       <div :class="$style.video_box">
         <img :src="`data:image/png;base64,${imageBase64}`" />
         <captured-video
-          @capture="(newImageBase64: string) => apiResponse = uploadImageToAPI(newImageBase64)"
+          @capture="(newImageBase64: string) => {
+            imageBase64 = newImageBase64
+            apiResponse = uploadImageToAPI(newImageBase64)
+            }"
         >
         </captured-video>
       </div>
