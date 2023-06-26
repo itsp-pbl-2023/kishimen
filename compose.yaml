@@ -3,6 +3,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      network: host
     ports:
       - "5173:5173"
     volumes:
@@ -13,6 +14,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      network: host
     ports:
       - "8000:8000"
     volumes:
