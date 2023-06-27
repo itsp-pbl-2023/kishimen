@@ -1,7 +1,6 @@
 import base64
 from fer import FER
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 
 
