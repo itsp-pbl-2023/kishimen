@@ -76,19 +76,19 @@ function selectMusic(obj: Emotion) {
   })
   switch (emotion) {
     case 'angry':
-      return 'blackout_piano1.mp3'
+      return 'seishishitauchu.mp3'
     case 'disgust':
-      return 'blackout_piano1.mp3'
+      return 'yume.mp3'
     case 'fear':
-      return 'blackout_piano1.mp3'
+      return 'seishishitauchu.mp3'
     case 'happy':
-      return 'blackout_piano2.mp3'
+      return 'yume.mp3'
     case 'sad':
-      return 'sample.mp3'
+      return 'seishishitauchu.mp3'
     case 'surprise':
-      return 'opening1.mp3'
+      return 'yume.mp3'
     case 'neutral':
-      return 'opening1.mp3'
+      return 'seishishitauchu.mp3'
   }
 }
 
