@@ -6,4 +6,6 @@ COPY requirements.txt ./
 RUN --mount=type=cache,mode=0755,target=/root/.cache/pip pip --disable-pip-version-check install -r requirements.txt \
   && rm -rf /tmp/pip-tmp
 
+RUN apt-get update && apt-get -y install ffmpeg
+
 ENTRYPOINT ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0"]

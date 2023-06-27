@@ -6,3 +6,4 @@ matplotlib==3.7.1
 moviepy==1.0.3
 opencv-contrib-python==4.7.0.72
 opencv-python==4.7.0.72
+tensorflow==2.12.0

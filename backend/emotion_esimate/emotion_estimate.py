@@ -1,4 +1,5 @@
 import base64
+from typing import Any
 from fer import FER
 import numpy as np
 import cv2
@@ -17,7 +18,7 @@ def capture_image(dst_path: str) -> None:
     cv2.imwrite(dst_path, frame)
 
 
-def convert_to_ndarray(base64_data: str) -> str:
+def convert_to_ndarray(base64_data: str) -> Any:
     """
     base64をデコードし、そのバイナリーデータをndarray型に変換する
     """
@@ -36,8 +37,10 @@ def emotion_estimate(base64_data: str) -> str:
     # バイナリーデータをndarrayに変換
     emo_detector = FER(mtcnn=True)
     image = convert_to_ndarray(base64_data)
-    # print(image.shape)
     captured_emotions = emo_detector.detect_emotions(image)
+    print(captured_emotions)
+    if len(captured_emotions) == 0:
+        return None
 
     return captured_emotions[0]["emotions"]
 
