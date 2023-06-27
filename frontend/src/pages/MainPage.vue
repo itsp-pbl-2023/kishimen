@@ -4,9 +4,11 @@
       <div :class="$style.video_box">
         <captured-video
           @capture="(newImageBase64: string) => {
-            imageBase64 = newImageBase64
-            apiResponse = uploadImageToAPI(newImageBase64)
-            }"
+            imageBase64 = newImageBase64;
+            (async () => {
+              apiResponse = await uploadImageToAPI(newImageBase64)
+            })()
+          }"
         >
         </captured-video>
       </div>
@@ -31,29 +33,27 @@
 </template>
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
+import type { Emotion } from '/@/api/index'
 import { uploadImageToAPI } from '/@/api/index'
 
 import { ref } from 'vue'
+
+let imageBase64 = ref<string>()
+let apiResponse = ref<Emotion>()
+
 const bottunState = ref('play')
 const music = ref<HTMLAudioElement>()
-type Emotion = {
-  angry: number
-  disgust: number
-  fear: number
-  happy: number
-  sad: number
-  surprise: number
-  neutral: number
-}
-const emotion = {
-  angry: 0.18,
-  disgust: 0.0,
-  fear: 0.07,
-  happy: 0.09,
-  sad: 0.66,
-  surprise: 1.0,
-  neutral: 0.01
-} as Emotion
+const emotion =
+  apiResponse.value ??
+  ({
+    angry: 0.18,
+    disgust: 0.0,
+    fear: 0.07,
+    happy: 0.09,
+    sad: 0.66,
+    surprise: 1.0,
+    neutral: 0.01
+  } as Emotion)
 let musicURL = selectMusic(emotion)
 function clickBottun() {
   if (bottunState.value === 'play') {
@@ -90,9 +90,6 @@ function selectMusic(obj: Emotion) {
       return 'opening1.mp3'
   }
 }
-
-let imageBase64 = ref<string>()
-let apiResponse = ref<object>()
 </script>
 <style lang="scss" module>
 .container {
