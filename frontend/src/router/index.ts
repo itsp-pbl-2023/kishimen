@@ -3,6 +3,7 @@ import Index from '../pages/IndexPage.vue'
 import Hello from '../pages/HelloPage.vue'
 import StartPage from '../pages/StartPage.vue'
 import MainPage from '../pages/MainPage.vue'
+import SettingPage from '../pages/SettingPage.vue'
 
 export const routerHistory = createWebHistory()
 
@@ -28,6 +29,11 @@ export default createRouter({
       path: '/main',
       name: 'main',
       component: MainPage
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: SettingPage
     }
   ]
 })
