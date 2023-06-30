@@ -5,7 +5,7 @@
         <captured-video> </captured-video>
       </div>
       <div :class="$style.under_stick">
-        <p :class="$style.content_text">音楽名 情熱大陸aaaaaaaaaaaaaa</p>
+        <p :class="$style.content_text">音楽名 {{ musicURL }}</p>
         <img
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
@@ -26,6 +26,11 @@
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import { ref } from 'vue'
+import { useMusicStore } from '/@/store/index'
+import { computed } from 'vue'
+
+const store = useMusicStore()
+
 const bottunState = ref('play')
 const music = ref<HTMLAudioElement>()
 type Emotion = {
@@ -46,7 +51,9 @@ const emotion = {
   surprise: 1.0,
   neutral: 0.01
 } as Emotion
-let musicURL = selectMusic(emotion)
+
+let musicURL = 'yume.mp3'
+
 function clickBottun() {
   if (bottunState.value === 'play') {
     bottunState.value = 'stop'
@@ -56,6 +63,7 @@ function clickBottun() {
     music.value?.pause()
   }
 }
+
 function selectMusic(obj: Emotion) {
   let max = -1
   let emotion = 'angry' as keyof Emotion
@@ -67,22 +75,28 @@ function selectMusic(obj: Emotion) {
   })
   switch (emotion) {
     case 'angry':
-      return 'seishishitauchu.mp3'
+      musicURL = store.get_music_angry
+      break
     case 'disgust':
-      return 'yume.mp3'
+      musicURL = store.get_music_disgust
+      break
     case 'fear':
-      return 'seishishitauchu.mp3'
     case 'happy':
-      return 'yume.mp3'
+      musicURL = store.get_music_happy
+      break
     case 'sad':
-      return 'seishishitauchu.mp3'
+      musicURL = store.get_music_sad
+      break
     case 'surprise':
-      return 'yume.mp3'
+      musicURL = store.get_music_surprise
+      break
     case 'neutral':
-      return 'seishishitauchu.mp3'
+      musicURL = store.get_music_neutral
+      break
   }
 }
 </script>
+
 <style lang="scss" module>
 .container {
   width: 100%;
