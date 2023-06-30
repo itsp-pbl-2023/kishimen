@@ -16,10 +16,18 @@
             <p :class="$style.content_text">Angry</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_angry"
+              v-model="select_angry"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_angry"
+                :key="music.value"
+                :value="music.text"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -29,10 +37,18 @@
             <p :class="$style.content_text">Disgust</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_disgust"
+              v-model="select_disgust"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_disgust"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -42,10 +58,18 @@
             <p :class="$style.content_text">Fear</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_fear"
+              v-model="select_fear"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_fear"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -55,10 +79,18 @@
             <p :class="$style.content_text">happy</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_happy"
+              v-model="select_happy"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_happy"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -68,10 +100,18 @@
             <p :class="$style.content_text">Sad</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_sad"
+              v-model="select_sad"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_sad"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -81,10 +121,18 @@
             <p :class="$style.content_text">Surprise</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_surprise"
+              v-model="select_surprise"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_surprise"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
@@ -94,14 +142,21 @@
             <p :class="$style.content_text">Neutral</p>
           </div>
           <div :class="$style.right">
-            <select :class="$style.pulldown">
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
-              <option value="music">情熱大陸.mp3</option>
+            <select
+              @change="change_neutral"
+              v-model="select_neutral"
+              :class="$style.pulldown"
+            >
+              <option
+                v-for="music in musics_neutral"
+                :key="music.value"
+                :value="music.value"
+              >
+                {{ music.text }}
+              </option>
             </select>
           </div>
         </div>
-
         <button
           :class="$style['back-button']"
           @mouseover="btnOver"
@@ -118,6 +173,81 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+// import { storeToRefs } from 'pinia'
+import { useMusicStore } from '/@/store/index'
+
+const store = useMusicStore()
+
+const select_angry = ref('')
+const select_happy = ref('')
+const select_fear = ref('')
+const select_sad = ref('')
+const select_surprise = ref('')
+const select_disgust = ref('')
+const select_neutral = ref('')
+
+const musics_angry = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_disgust = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_fear = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_happy = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_sad = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_surprise = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
+
+const musics_neutral = ref([
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
+])
 
 const colors = {
   team_color: '#ff971d',
@@ -125,18 +255,42 @@ const colors = {
   black: '#000000'
 }
 
-const router = useRouter()
+const change_angry = (event: any) => {
+  store.change_music_angry(event.target.value)
+}
+const change_happy = (event: any) => {
+  store.change_music_happy(event.target.value)
+}
+const change_disgust = (event: any) => {
+  store.change_music_disgust(event.target.value)
+}
+const change_surprise = (event: any) => {
+  store.change_music_surprise(event.target.value)
+}
+const change_neutral = (event: any) => {
+  store.change_music_neutral(event.target.value)
+}
+const change_sad = (event: any) => {
+  store.change_music_sad(event.target.value)
+}
+const change_fear = (event: any) => {
+  store.change_music_fear(event.target.value)
+}
 
+const router = useRouter()
 const btn_color = ref(colors.white)
 const btn_txt_color = ref(colors.black)
+
 const btnOver = () => {
   btn_color.value = colors.team_color
   btn_txt_color.value = colors.white
 }
+
 const btnLeave = () => {
   btn_color.value = colors.white
   btn_txt_color.value = colors.black
 }
+
 const goMainpage = () => {
   router.push('main')
 }

@@ -11,7 +11,7 @@
         </captured-video>
       </div>
       <div :class="$style.under_stick">
-        <p :class="$style.content_text">音楽名 情熱大陸aaaaaaaaaaaaaa</p>
+        <p :class="$style.content_text">音楽名 {{ musicURL }}</p>
         <img
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
@@ -35,6 +35,10 @@ import type { Emotion } from '/@/api/index'
 import { uploadImageToAPI } from '/@/api/index'
 
 import { ref } from 'vue'
+import { useMusicStore } from '/@/store/index'
+import { computed } from 'vue'
+
+const store = useMusicStore()
 
 let imageBase64 = ref<string>()
 let apiResponse = ref<Emotion>()
@@ -50,6 +54,7 @@ let emotion = {
   surprise: 1.0,
   neutral: 0.01
 } as Emotion
+
 emotion = apiResponse.value ?? emotion
 let musicURL = selectMusic(emotion)
 function clickBottun() {
@@ -61,6 +66,7 @@ function clickBottun() {
     music.value?.pause()
   }
 }
+
 function selectMusic(obj: Emotion) {
   let max = -1
   let emotion = 'angry' as keyof Emotion
@@ -72,19 +78,19 @@ function selectMusic(obj: Emotion) {
   })
   switch (emotion) {
     case 'angry':
-      return 'seishishitauchu.mp3'
+      return store.get_music_angry
     case 'disgust':
-      return 'yume.mp3'
+      return store.get_music_disgust
     case 'fear':
-      return 'seishishitauchu.mp3'
+      return store.get_music_fear
     case 'happy':
-      return 'yume.mp3'
+      return store.get_music_happy
     case 'sad':
-      return 'seishishitauchu.mp3'
+      return store.get_music_sad
     case 'surprise':
-      return 'yume.mp3'
+      return store.get_music_surprise
     case 'neutral':
-      return 'seishishitauchu.mp3'
+      return store.get_music_neutral
   }
 }
 
@@ -92,6 +98,7 @@ async function uploadImage(newImageBase64: string) {
   apiResponse.value = await uploadImageToAPI(newImageBase64)
 }
 </script>
+
 <style lang="scss" module>
 .container {
   width: 100%;
