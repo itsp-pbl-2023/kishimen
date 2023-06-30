@@ -7,7 +7,7 @@
           @mouseover="btnOver(menu)"
           @mouseleave="btnLeave(menu)"
           @click="goPage(menu.page)"
-          :style="{ backgroundColor: menu.btn_color, color: menu.text_color}"
+          :style="{ backgroundColor: menu.btn_color, color: menu.text_color }"
           v-for="(menu, idx) in start_menus"
           :key="idx"
         >
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import type internal from 'stream';
+import type internal from 'stream'
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -37,25 +37,25 @@ const colors = {
 }
 
 type StartMenu = {
-  titel: string, 
-  text_color: string, 
+  titel: string
+  text_color: string
   btn_color: string
   page: string
 }
 let start_menus = reactive<StartMenu[]>([
-  { titel: '新規ミーティング',
-    text_color: colors.black, 
-    btn_color: colors.white, 
+  {
+    titel: '新規ミーティング',
+    text_color: colors.black,
+    btn_color: colors.white,
     page: 'create-meeting'
   },
   {
     titel: 'ミーティングに参加',
-    text_color: colors.black, 
-    btn_color: colors.white, 
+    text_color: colors.black,
+    btn_color: colors.white,
     page: 'join-meeting'
   }
 ])
-
 
 const router = useRouter()
 

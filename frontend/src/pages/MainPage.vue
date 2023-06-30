@@ -55,7 +55,6 @@ let emotion = {
   neutral: 0.01
 } as Emotion
 
-
 emotion = apiResponse.value ?? emotion
 let musicURL = selectMusic(emotion)
 function clickBottun() {
@@ -79,24 +78,19 @@ function selectMusic(obj: Emotion) {
   })
   switch (emotion) {
     case 'angry':
-      musicURL = store.get_music_angry
-      break
+      return store.get_music_angry
     case 'disgust':
-      musicURL = store.get_music_disgust
-      break
+      return store.get_music_disgust
     case 'fear':
+      return store.get_music_fear
     case 'happy':
-      musicURL = store.get_music_happy
-      break
+      return store.get_music_happy
     case 'sad':
-      musicURL = store.get_music_sad
-      break
+      return store.get_music_sad
     case 'surprise':
-      musicURL = store.get_music_surprise
-      break
+      return store.get_music_surprise
     case 'neutral':
-      musicURL = store.get_music_neutral
-      break
+      return store.get_music_neutral
   }
 }
 

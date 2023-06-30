@@ -187,66 +187,66 @@ const select_disgust = ref('')
 const select_neutral = ref('')
 
 const musics_angry = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_disgust = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_fear = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_happy = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_sad = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_surprise = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const musics_neutral = ref([
-  { text: 'Distrubance.mp3', value: 0 },
-  { text: 'Red_moon.mp3', value: 1 },
-  { text: 'Running_To_The_Way.mp3', value: 2 },
-  { text: 'seishishitauchu.mp3', value: 3 },
-  { text: 'The_PEAK.mp3', value: 4 },
-  { text: 'yume.mp3', value: 5 }
+  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
+  { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
+  { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
+  { text: 'The_PEAK.mp3', value: 'The_PEAK.mp3' },
+  { text: 'yume.mp3', value: 'yume.mp3' }
 ])
 
 const colors = {
