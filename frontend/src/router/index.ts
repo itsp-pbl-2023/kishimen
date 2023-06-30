@@ -4,6 +4,8 @@ import Hello from '../pages/HelloPage.vue'
 import StartPage from '../pages/StartPage.vue'
 import MainPage from '../pages/MainPage.vue'
 import SettingPage from '../pages/SettingPage.vue'
+import CreateMeeting from '../pages/CreateMeeting.vue'
+import JoinMeeting from '../pages/JoinMeeting.vue'
 
 export const routerHistory = createWebHistory()
 
@@ -34,6 +36,16 @@ export default createRouter({
       path: '/setting',
       name: 'setting',
       component: SettingPage
+    },
+    {
+      path: '/create-meeting',
+      name: 'create-meeting',
+      component: CreateMeeting
+    },
+    {
+      path: '/join-meeting',
+      name: 'join-meeting',
+      component: JoinMeeting
     }
   ]
 })

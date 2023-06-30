@@ -2,7 +2,13 @@
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.video_box">
-        <captured-video> </captured-video>
+        <captured-video
+          @capture="(newImageBase64: string) => {
+            imageBase64 = newImageBase64;
+            uploadImage(newImageBase64)
+          }"
+        >
+        </captured-video>
       </div>
       <div :class="$style.under_stick">
         <p :class="$style.content_text">音楽名 {{ musicURL }}</p>
@@ -25,24 +31,21 @@
 </template>
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
+import type { Emotion } from '/@/api/index'
+import { uploadImageToAPI } from '/@/api/index'
+
 import { ref } from 'vue'
 import { useMusicStore } from '/@/store/index'
 import { computed } from 'vue'
 
 const store = useMusicStore()
 
+let imageBase64 = ref<string>()
+let apiResponse = ref<Emotion>()
+
 const bottunState = ref('play')
 const music = ref<HTMLAudioElement>()
-type Emotion = {
-  angry: number
-  disgust: number
-  fear: number
-  happy: number
-  sad: number
-  surprise: number
-  neutral: number
-}
-const emotion = {
+let emotion = {
   angry: 0.18,
   disgust: 0.0,
   fear: 0.07,
@@ -52,8 +55,9 @@ const emotion = {
   neutral: 0.01
 } as Emotion
 
-let musicURL = 'yume.mp3'
 
+emotion = apiResponse.value ?? emotion
+let musicURL = selectMusic(emotion)
 function clickBottun() {
   if (bottunState.value === 'play') {
     bottunState.value = 'stop'
@@ -94,6 +98,10 @@ function selectMusic(obj: Emotion) {
       musicURL = store.get_music_neutral
       break
   }
+}
+
+async function uploadImage(newImageBase64: string) {
+  apiResponse.value = await uploadImageToAPI(newImageBase64)
 }
 </script>
 
