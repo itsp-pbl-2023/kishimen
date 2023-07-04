@@ -198,6 +198,7 @@ function selectMusic(obj: Emotion) {
       emotion = key
     }
   })
+  console.log(emotion)
   switch (emotion) {
     case 'angry':
       return store.get_music_angry
@@ -216,10 +217,10 @@ function selectMusic(obj: Emotion) {
   }
 }
 
-function doEmptionEstimate(newImageBase64: string) {
+async function doEmptionEstimate(newImageBase64: string) {
   imageBase64.value = newImageBase64
   uploadImage(newImageBase64)
-  getAllEmotion
+  getAllEmotion()
 }
 
 async function uploadImage(newImageBase64: string) {
@@ -227,11 +228,12 @@ async function uploadImage(newImageBase64: string) {
 }
 
 async function getAllEmotion() {
-  console.log(user_store.get_is_host)
   if (user_store.get_is_host) {
+    const audio = document.getElementById('myAudio')
     const emotion = await getEmotion(user_store.meeting_key)
     if (emotion) {
       selectMusic(emotion)
+      music.value?.play()
     }
   }
 }

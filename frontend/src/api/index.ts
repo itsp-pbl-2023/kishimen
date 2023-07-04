@@ -75,7 +75,7 @@ export const getEmotion = async (meeting_key: string) => {
 
   return await fetch(url, {
     mode: 'cors',
-    method: 'POST',
+    method: 'GET',
     headers: {
       'content-type': 'application/json'
     }
