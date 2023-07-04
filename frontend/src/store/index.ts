@@ -21,12 +21,12 @@ export const useStore = defineStore('pinia', {
 export const useMusicStore = defineStore('musics', {
   state: () => {
     return {
-      music_angry: 'Distrubance.mp3',
+      music_angry: 'Disturbance.mp3',
       music_fear: 'Red_moon.mp3',
       music_surprise: 'Running_To_The_Way.mp3',
       music_happy: 'seishishitauchu.mp3',
       music_sad: 'Red_moon.mp3',
-      music_neutral: 'Distrubance.mp3',
+      music_neutral: 'Disturbance.mp3',
       music_disgust: 'seishishitauchu.mp3'
     }
   },

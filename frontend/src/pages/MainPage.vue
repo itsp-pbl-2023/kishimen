@@ -11,7 +11,9 @@
         </captured-video>
       </div>
       <div :class="$style.under_stick">
-        <p :class="$style.content_text">音楽名 {{ musicURL }}</p>
+        <p :class="$style.content_text">
+          音楽名 {{ musics[musicURL]?.name ?? musicURL }}
+        </p>
         <img
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
@@ -23,6 +25,8 @@
           :src="`../../public/music/${musicURL}`"
           controls
           hidden
+          autoplay
+          loop
         ></audio>
         <span :class="$style.space_padding"></span>
       </div>
@@ -33,30 +37,18 @@
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
 import { uploadImageToAPI } from '/@/api/index'
+import { musics } from '/@/assets/musics'
 
 import { ref } from 'vue'
 import { useMusicStore } from '/@/store/index'
-import { computed } from 'vue'
 
 const store = useMusicStore()
 
 let imageBase64 = ref<string>()
-let apiResponse = ref<Emotion>()
+let musicURL = ref<string>('seishishitauchu.mp3')
 
-const bottunState = ref('play')
+const bottunState = ref('stop')
 const music = ref<HTMLAudioElement>()
-let emotion = {
-  angry: 0.18,
-  disgust: 0.0,
-  fear: 0.07,
-  happy: 0.09,
-  sad: 0.66,
-  surprise: 1.0,
-  neutral: 0.01
-} as Emotion
-
-emotion = apiResponse.value ?? emotion
-let musicURL = selectMusic(emotion)
 function clickBottun() {
   if (bottunState.value === 'play') {
     bottunState.value = 'stop'
@@ -95,7 +87,10 @@ function selectMusic(obj: Emotion) {
 }
 
 async function uploadImage(newImageBase64: string) {
-  apiResponse.value = await uploadImageToAPI(newImageBase64)
+  const emotion = await uploadImageToAPI(newImageBase64)
+  if (emotion) {
+    musicURL.value = selectMusic(emotion)
+  }
 }
 </script>
 
