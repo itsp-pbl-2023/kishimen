@@ -79,3 +79,28 @@ export const useMusicStore = defineStore('musics', {
     }
   }
 })
+
+export const useUserStore = defineStore('user', {
+  state: () => {
+    return {
+      meeting_key: '',
+      is_host: false
+    }
+  },
+  getters: {
+    get_meeting_key(state) {
+      return state.meeting_key
+    },
+    get_is_host(state) {
+      return state.is_host
+    }
+  },
+  actions: {
+    set_meeting(key: string) {
+      this.meeting_key = key
+    },
+    set_host() {
+      this.is_host = true
+    }
+  }
+})
