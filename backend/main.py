@@ -34,6 +34,11 @@ async def root(image: Image, user_id: Union[str, None] = Cookie(default=None)):
 @router.post("/meeting")
 async def post_meeting(response: Response):
     key = random_name()
+    if key in meeting_map:
+        i = 0
+        while key in meeting_map:
+            key = random_name() + "_" + str(i)
+            i += 1
 
     user_id = str(uuid.uuid4())
     response.set_cookie("user_id", user_id)
