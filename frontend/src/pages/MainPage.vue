@@ -164,13 +164,15 @@
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
-import { uploadImageToAPI } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
 import { ref } from 'vue'
-import { useMusicStore } from '/@/store/index'
+import { uploadImageToAPI, getEmotion } from '/@/api/index'
+import { useMusicStore, useUserStore } from '/@/store/index'
+import { computed } from 'vue'
 
 const store = useMusicStore()
+const user_store = useUserStore()
 
 let imageBase64 = ref<string>()
 let musicURL = ref<string>('seishishitauchu.mp3')

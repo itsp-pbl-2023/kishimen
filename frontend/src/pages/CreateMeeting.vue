@@ -1,8 +1,21 @@
 <template>
   <div class="container">
     <div class="create-container">
-      <div class="meeting-key" @click="copyToClipboard">
+      <div
+        class="meeting-key"
+        @click="copyToClipboard"
+        @mouseover="showPopup = true"
+        @mouseleave="leavePopup"
+        @mousemove="updatePopupPosition"
+      >
         <span>{{ meeting_key }}</span>
+      </div>
+      <div
+        v-if="showPopup"
+        class="popup"
+        :style="{ top: popupTop + 'px', left: popupLeft + 'px' }"
+      >
+        {{ copy_text }}
       </div>
       <button
         class="btn"
@@ -45,6 +58,11 @@ let text_color = ref<string>(colors.black)
 let meeting_id = ref<string>()
 let top_page_color = ref(colors.gray)
 let meeting_key = ref<string>('')
+let copy_text = ref<string>('コピー')
+
+const showPopup = ref(false)
+const popupTop = ref(0)
+const popupLeft = ref(0)
 
 const router = useRouter()
 const user_store = useUserStore()
@@ -54,9 +72,20 @@ onMounted(() => {
 })
 
 const copyToClipboard = () => {
+  copy_text.value = 'コピーしました'
   navigator.clipboard.writeText(meeting_key.value).catch(err => {
     throw err
   })
+}
+
+const updatePopupPosition = (event: MouseEvent) => {
+  popupTop.value = event.clientY - 40 // カーソルの縦位置に応じて調整
+  popupLeft.value = event.clientX + 10 // カーソルの横位置に応じて調整
+}
+
+const leavePopup = () => {
+  copy_text.value = 'コピー'
+  showPopup.value = false
 }
 
 const btnOver = () => {
@@ -149,6 +178,24 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+}
+.target-element {
+  width: 100%;
+  height: 100%;
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 14px;
 }
 .btn {
   margin-top: 15%;

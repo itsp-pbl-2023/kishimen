@@ -2,10 +2,10 @@
   <div class="container">
     <div class="create-container">
       <input
+        v-model="meeting_id"
         class="id-input"
         type="text"
         placeholder="Meeting ID"
-        :value="meeting_id"
       />
       <button
         :style="{ backgroundColor: btn_color, color: text_color }"
@@ -35,6 +35,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { JoinMeeting } from '/@/api/index'
+import { useUserStore } from '/@/store/index'
 
 const colors = {
   team_color: '#ff971d',
@@ -45,10 +46,11 @@ const colors = {
 
 let btn_color = ref<string>(colors.white)
 let text_color = ref<string>(colors.black)
-let meeting_id = ref<string>('')
+const meeting_id = ref<string>('')
 let top_page_color = ref(colors.gray)
 
 const router = useRouter()
+const user_store = useUserStore()
 
 const btnOver = () => {
   btn_color.value = colors.team_color
@@ -64,6 +66,12 @@ const goMainpage = () => {
     return
   }
   JoinMeeting(meeting_id.value)
+    .then(res => {
+      user_store.set_meeting(meeting_id.value)
+    })
+    .catch(err => {
+      throw err
+    })
   router.push('main')
 }
 const goTopPage = () => {

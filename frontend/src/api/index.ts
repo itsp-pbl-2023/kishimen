@@ -70,3 +70,20 @@ export const JoinMeeting = async (meeting_key: string) => {
       throw err
     })
 }
+export const getEmotion = async (meeting_key: string) => {
+  const url = API_URL + 'meeting/' + meeting_key
+
+  return await fetch(url, {
+    mode: 'cors',
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => {
+      return response.json() as Promise<Emotion>
+    })
+    .catch(err => {
+      throw err
+    })
+}
