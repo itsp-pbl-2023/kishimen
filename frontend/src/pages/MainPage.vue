@@ -4,8 +4,7 @@
       <div :class="$style.video_box">
         <captured-video
           @capture="(newImageBase64: string) => {
-            imageBase64 = newImageBase64;
-            uploadImage(newImageBase64)
+            doEmptionEstimate(newImageBase64)
           }"
         >
         </captured-video>
@@ -52,17 +51,18 @@
         </div>
 
         <img
+          v-if="user_store.get_is_host"
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
           alt="再生ボタン"
           @click="clickBottun"
         />
         <audio
+          id="myAudio"
           ref="music"
           :src="`../../public/music/${musicURL}`"
           controls
           hidden
-          autoplay
           loop
         ></audio>
         <span :class="$style.space_padding"></span>
@@ -164,13 +164,15 @@
 <script setup lang="ts">
 import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
-import { uploadImageToAPI } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
 import { ref } from 'vue'
-import { useMusicStore } from '/@/store/index'
+import { uploadImageToAPI, getEmotion } from '/@/api/index'
+import { useMusicStore, useUserStore } from '/@/store/index'
+import { computed } from 'vue'
 
 const store = useMusicStore()
+const user_store = useUserStore()
 
 let imageBase64 = ref<string>()
 let musicURL = ref<string>('seishishitauchu.mp3')
@@ -196,6 +198,7 @@ function selectMusic(obj: Emotion) {
       emotion = key
     }
   })
+  console.log(emotion)
   switch (emotion) {
     case 'angry':
       return store.get_music_angry
@@ -214,10 +217,24 @@ function selectMusic(obj: Emotion) {
   }
 }
 
+async function doEmptionEstimate(newImageBase64: string) {
+  imageBase64.value = newImageBase64
+  uploadImage(newImageBase64)
+  getAllEmotion()
+}
+
 async function uploadImage(newImageBase64: string) {
   const emotion = await uploadImageToAPI(newImageBase64)
-  if (emotion) {
-    musicURL.value = selectMusic(emotion)
+}
+
+async function getAllEmotion() {
+  if (user_store.get_is_host) {
+    const audio = document.getElementById('myAudio')
+    const emotion = await getEmotion(user_store.meeting_key)
+    if (emotion) {
+      selectMusic(emotion)
+      music.value?.play()
+    }
   }
 }
 
