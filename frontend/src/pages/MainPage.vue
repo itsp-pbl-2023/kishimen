@@ -4,8 +4,7 @@
       <div :class="$style.video_box">
         <captured-video
           @capture="(newImageBase64: string) => {
-            imageBase64 = newImageBase64;
-            uploadImage(newImageBase64)
+            doEmptionEstimate(newImageBase64)
           }"
         >
         </captured-video>
@@ -52,17 +51,18 @@
         </div>
 
         <img
+          v-if="user_store.get_is_host"
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
           alt="再生ボタン"
           @click="clickBottun"
         />
         <audio
+          id="myAudio"
           ref="music"
           :src="`../../public/music/${musicURL}`"
           controls
           hidden
-          autoplay
           loop
         ></audio>
         <span :class="$style.space_padding"></span>
@@ -216,10 +216,23 @@ function selectMusic(obj: Emotion) {
   }
 }
 
+function doEmptionEstimate(newImageBase64: string) {
+  imageBase64.value = newImageBase64
+  uploadImage(newImageBase64)
+  getAllEmotion
+}
+
 async function uploadImage(newImageBase64: string) {
   const emotion = await uploadImageToAPI(newImageBase64)
-  if (emotion) {
-    musicURL.value = selectMusic(emotion)
+}
+
+async function getAllEmotion() {
+  console.log(user_store.get_is_host)
+  if (user_store.get_is_host) {
+    const emotion = await getEmotion(user_store.meeting_key)
+    if (emotion) {
+      selectMusic(emotion)
+    }
   }
 }
 
