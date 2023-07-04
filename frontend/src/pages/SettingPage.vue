@@ -17,9 +17,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_angry"
               v-model="select_angry"
               :class="$style.pulldown"
+              @change="change_angry"
             >
               <option
                 v-for="music in musics_angry"
@@ -38,9 +38,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_disgust"
               v-model="select_disgust"
               :class="$style.pulldown"
+              @change="change_disgust"
             >
               <option
                 v-for="music in musics_disgust"
@@ -59,9 +59,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_fear"
               v-model="select_fear"
               :class="$style.pulldown"
+              @change="change_fear"
             >
               <option
                 v-for="music in musics_fear"
@@ -80,9 +80,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_happy"
               v-model="select_happy"
               :class="$style.pulldown"
+              @change="change_happy"
             >
               <option
                 v-for="music in musics_happy"
@@ -101,9 +101,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_sad"
               v-model="select_sad"
               :class="$style.pulldown"
+              @change="change_sad"
             >
               <option
                 v-for="music in musics_sad"
@@ -122,9 +122,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_surprise"
               v-model="select_surprise"
               :class="$style.pulldown"
+              @change="change_surprise"
             >
               <option
                 v-for="music in musics_surprise"
@@ -143,9 +143,9 @@
           </div>
           <div :class="$style.right">
             <select
-              @change="change_neutral"
               v-model="select_neutral"
               :class="$style.pulldown"
+              @change="change_neutral"
             >
               <option
                 v-for="music in musics_neutral"
@@ -187,7 +187,7 @@ const select_disgust = ref('')
 const select_neutral = ref('')
 
 const musics_angry = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -196,7 +196,7 @@ const musics_angry = ref([
 ])
 
 const musics_disgust = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -205,7 +205,7 @@ const musics_disgust = ref([
 ])
 
 const musics_fear = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -214,7 +214,7 @@ const musics_fear = ref([
 ])
 
 const musics_happy = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -223,7 +223,7 @@ const musics_happy = ref([
 ])
 
 const musics_sad = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -232,7 +232,7 @@ const musics_sad = ref([
 ])
 
 const musics_surprise = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },
@@ -241,7 +241,7 @@ const musics_surprise = ref([
 ])
 
 const musics_neutral = ref([
-  { text: 'Distrubance.mp3', value: 'Distrubance.mp3' },
+  { text: 'Disturbance.mp3', value: 'Disturbance.mp3' },
   { text: 'Red_moon.mp3', value: 'Red_moon.mp3' },
   { text: 'Running_To_The_Way.mp3', value: 'Running_To_The_Way.mp3' },
   { text: 'seishishitauchu.mp3', value: 'seishishitauchu.mp3' },

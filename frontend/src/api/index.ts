@@ -22,7 +22,7 @@ export const uploadImageToAPI = async (imageBase64: string) => {
     }
   })
     .then(response => {
-      return response.json() as Promise<Emotion>
+      return response.json() as Promise<Emotion | null>
     })
     .catch(err => {
       throw err
