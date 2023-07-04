@@ -68,6 +68,97 @@
         <span :class="$style.space_padding"></span>
       </div>
     </div>
+
+    <div
+      style="
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        text-align: center;
+        margin-left: 30px;
+        border: 1px solid #333333;
+        border-radius: 10px;
+      "
+    >
+      <h4>感情の重みづけ</h4>
+      <div>
+        Angry: <span id="value">{{ angry_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_angry"
+      />
+      <div>
+        Disgust: <span id="value">{{ disgust_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_disgust"
+      />
+      <div>
+        Fear: <span id="value">{{ fear_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_fear"
+      />
+      <div>
+        Happy: <span id="value">{{ happy_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_happy"
+      />
+      <div>
+        Sad: <span id="value">{{ sad_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_sad"
+      />
+      <div>
+        Surprise: <span id="value">{{ surprise_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_surprise"
+      />
+      <div>
+        Neutral: <span id="value">{{ neutral_weight }}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        @change="change_neutral"
+      />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -128,6 +219,42 @@ async function uploadImage(newImageBase64: string) {
   if (emotion) {
     musicURL.value = selectMusic(emotion)
   }
+}
+
+let angry_weight = ref<number>(1)
+let disgust_weight = ref<number>(1)
+let fear_weight = ref<number>(1)
+let happy_weight = ref<number>(1)
+let sad_weight = ref<number>(1)
+let surprise_weight = ref<number>(1)
+let neutral_weight = ref<number>(1)
+
+const change_angry = (event: any) => {
+  angry_weight.value = event.target.value
+}
+
+const change_disgust = (event: any) => {
+  disgust_weight.value = event.target.value
+}
+
+const change_fear = (event: any) => {
+  fear_weight.value = event.target.value
+}
+
+const change_happy = (event: any) => {
+  happy_weight.value = event.target.value
+}
+
+const change_sad = (event: any) => {
+  sad_weight.value = event.target.value
+}
+
+const change_surprise = (event: any) => {
+  surprise_weight.value = event.target.value
+}
+
+const change_neutral = (event: any) => {
+  neutral_weight.value = event.target.value
 }
 </script>
 
@@ -202,5 +329,14 @@ async function uploadImage(newImageBase64: string) {
   100% {
     transform: translateX(-100%);
   }
+}
+
+input[type='range' i] {
+  appearance: auto;
+  cursor: default;
+  padding: initial;
+  border: initial;
+  margin: 2px;
+  margin-bottom: 20px;
 }
 </style>
