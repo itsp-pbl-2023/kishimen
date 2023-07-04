@@ -24,9 +24,9 @@
               <option
                 v-for="music in musics_angry"
                 :key="music.value"
-                :value="music.text"
+                :value="musics[music.text]?.name ?? music.text"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -47,7 +47,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -68,7 +68,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -89,7 +89,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -110,7 +110,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -131,7 +131,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -152,7 +152,7 @@
                 :key="music.value"
                 :value="music.value"
               >
-                {{ music.text }}
+                {{ musics[music.text]?.name ?? music.text }}
               </option>
             </select>
           </div>
@@ -175,6 +175,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import { storeToRefs } from 'pinia'
 import { useMusicStore } from '/@/store/index'
+import { musics } from '/@/assets/musics'
 
 const store = useMusicStore()
 

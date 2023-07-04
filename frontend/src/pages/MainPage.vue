@@ -11,7 +11,9 @@
         </captured-video>
       </div>
       <div :class="$style.under_stick">
-        <p :class="$style.content_text">音楽名 {{ musics[musicURL]?.name }}</p>
+        <p :class="$style.content_text">
+          音楽名 {{ musics[musicURL]?.name ?? musicURL }}
+        </p>
         <img
           :class="$style.bottun_play"
           :src="`/bottun_${bottunState}.png`"
