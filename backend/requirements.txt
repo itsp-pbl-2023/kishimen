@@ -1,6 +1,6 @@
 fastapi==0.95.2
 uvicorn[standard]==0.22.0
-fer==22.5.0
+fer==22.5.1
 numpy==1.23.5
 matplotlib==3.7.1
 moviepy==1.0.3
