@@ -58,12 +58,14 @@
           @click="clickBottun"
         />
         <audio
+          v-if="user_store.get_is_host"
           id="myAudio"
           ref="music"
           :src="`../../public/music/${musicURL}`"
           controls
           hidden
           loop
+          autoplay
         ></audio>
         <span :class="$style.space_padding"></span>
       </div>
@@ -166,7 +168,7 @@ import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
-import { onUpdated, ref } from 'vue'
+import { ref } from 'vue'
 import { uploadImageToAPI, getEmotion } from '/@/api/index'
 import { useMusicStore, useUserStore } from '/@/store/index'
 
@@ -174,7 +176,7 @@ const store = useMusicStore()
 const user_store = useUserStore()
 
 let imageBase64 = ref<string>()
-let musicURL = ref<string>('seishishitauchu.mp3')
+let musicURL = ref<string>()
 
 const bottunState = ref('stop')
 const music = ref<HTMLAudioElement>()
@@ -188,15 +190,10 @@ function clickBottun() {
   }
 }
 
-onUpdated(() => {
-  music.value?.play()
-})
-
 function selectMusic(obj: Emotion) {
   let max = -1
   let weight
   let emotion = 'angry' as keyof Emotion
-  console.log(`old: ${JSON.stringify(obj, null, 2)}`)
   ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
     if (key === 'angry') weight = angry_weight.value
     else if (key === 'disgust') weight = disgust_weight.value
@@ -212,7 +209,6 @@ function selectMusic(obj: Emotion) {
       emotion = key
     }
   })
-  console.log(`new: ${JSON.stringify(obj, null, 2)}`)
 
   switch (emotion) {
     case 'angry':
