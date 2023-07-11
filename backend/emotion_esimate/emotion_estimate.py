@@ -72,7 +72,7 @@ def emotion_estimate(base64_data: str) -> str:
     clahe_image = preprocessing_color(image)
     # clahe_image = preprocessing_gray(image)
     captured_emotions = emo_detector.detect_emotions(clahe_image)
-    # cv2.imwrite("data/clahe_image2.jpeg", clahe_image)
+    # cv2.imwrite("data/hamada_color.jpeg", clahe_image)
     if len(captured_emotions) == 0:
         return None
 
@@ -80,7 +80,7 @@ def emotion_estimate(base64_data: str) -> str:
 
 
 if __name__ == "__main__":
-    dst_path = "data/baby_sad.jpeg"
+    dst_path = "data/hamada.jpeg"
     with open(dst_path, "rb") as image_file:
         data = base64.b64encode(image_file.read())
     print(emotion_estimate(data))
