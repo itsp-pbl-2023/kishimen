@@ -191,14 +191,23 @@ function clickBottun() {
 
 function selectMusic(obj: Emotion) {
   let max = -1
+  let weight
   let emotion = 'angry' as keyof Emotion
   ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
-    if (obj[key] > max) {
-      max = obj[key]
+    if (key === 'angry') weight = angry_weight.value
+    else if (key === 'disgust') weight = disgust_weight.value
+    else if (key === 'fear') weight = fear_weight.value
+    else if (key === 'happy') weight = happy_weight.value
+    else if (key === 'sad') weight = sad_weight.value
+    else if (key === 'surprise') weight = surprise_weight.value
+    else weight = neutral_weight.value
+
+    if (obj[key] * weight > max) {
+      max = obj[key] * weight
       emotion = key
     }
   })
-  console.log(emotion)
+
   switch (emotion) {
     case 'angry':
       return store.get_music_angry
