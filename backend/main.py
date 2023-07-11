@@ -23,13 +23,13 @@ meeting_map = {}
 @router.post("/emotion_estimate")
 async def root(image: Image, user_id: Union[str, None] = Cookie(default=None)):
     emotion = emotion_estimate(image.img)
-    if emotion is not None:
+    if user_id is not None:
         for meeting in meeting_map.values():
             for usr_id in meeting.keys():
                 if usr_id == user_id:
                     print("user_id", usr_id)
                     meeting[usr_id]["image"] = image.img
-                    if user_id is not None:
+                    if emotion is not None:
                         meeting[usr_id]["emotion"] = emotion
     return emotion
 
@@ -120,7 +120,13 @@ async def get_emotion(key: str):
 
 
 @router.get("/meeting/{key}/images")
-async def get_images(key: str):
+async def get_images(key: str, user_id: Union[str, None] = Cookie(default=None)):
+    if user_id is None:
+        return JSONResponse(
+            content={"message": "user_id not found"},
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
+
     if key not in meeting_map:
         return JSONResponse(
             content={"message": "meeting not found"},
@@ -129,8 +135,8 @@ async def get_images(key: str):
 
     result = []
     meeting = meeting_map[key]
-    for user in meeting.values():
-        if "image" in user and user["image"] is not None:
+    for usr_id, user in meeting.values():
+        if usr_id != user_id and "image" in user and user["image"] is not None:
             result.append(user["image"])
 
     return result
