@@ -166,10 +166,9 @@ import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
-import { ref } from 'vue'
+import { onUpdated, ref } from 'vue'
 import { uploadImageToAPI, getEmotion } from '/@/api/index'
 import { useMusicStore, useUserStore } from '/@/store/index'
-import { computed } from 'vue'
 
 const store = useMusicStore()
 const user_store = useUserStore()
@@ -189,10 +188,15 @@ function clickBottun() {
   }
 }
 
+onUpdated(() => {
+  music.value?.play()
+})
+
 function selectMusic(obj: Emotion) {
   let max = -1
   let weight
   let emotion = 'angry' as keyof Emotion
+  console.log(`old: ${JSON.stringify(obj, null, 2)}`)
   ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
     if (key === 'angry') weight = angry_weight.value
     else if (key === 'disgust') weight = disgust_weight.value
@@ -202,11 +206,13 @@ function selectMusic(obj: Emotion) {
     else if (key === 'surprise') weight = surprise_weight.value
     else weight = neutral_weight.value
 
-    if (obj[key] * weight > max) {
-      max = obj[key] * weight
+    obj[key] = obj[key] * weight
+    if (obj[key] > max) {
+      max = obj[key]
       emotion = key
     }
   })
+  console.log(`new: ${JSON.stringify(obj, null, 2)}`)
 
   switch (emotion) {
     case 'angry':
@@ -238,11 +244,12 @@ async function uploadImage(newImageBase64: string) {
 
 async function getAllEmotion() {
   if (user_store.get_is_host) {
-    const audio = document.getElementById('myAudio')
+    const paused = music.value?.paused
     const emotion = await getEmotion(user_store.meeting_key)
     if (emotion) {
-      selectMusic(emotion)
-      music.value?.play()
+      musicURL.value = selectMusic(emotion)
+
+      if (!paused) music.value?.play()
     }
   }
 }
