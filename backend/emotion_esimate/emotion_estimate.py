@@ -69,18 +69,26 @@ def emotion_estimate(base64_data: str) -> str:
     # バイナリーデータをndarrayに変換
     emo_detector = FER(mtcnn=True)
     image = convert_to_ndarray(base64_data)
-    clahe_image = preprocessing_color(image)
-    # clahe_image = preprocessing_gray(image)
-    captured_emotions = emo_detector.detect_emotions(clahe_image)
-    # cv2.imwrite("data/hamada_color.jpeg", clahe_image)
-    if len(captured_emotions) == 0:
-        return None
+    captured_emotions_normal = emo_detector.detect_emotions(image)
+
+    captured_emotions = captured_emotions_normal
+    if len(captured_emotions_normal) == 0:
+        clahe_image_gray = preprocessing_gray(image)
+        captured_emotions_gray = emo_detector.detect_emotions(clahe_image_gray)
+        captured_emotions = captured_emotions_gray
+        if len(captured_emotions_gray) == 0:
+            clahe_image_color = preprocessing_color(image)
+            captured_emotions_color = emo_detector.detect_emotions(clahe_image_color)
+            captured_emotions = captured_emotions_color
+            if len(captured_emotions_color) == 0:
+                return None
 
     return captured_emotions[0]["emotions"]
 
 
 if __name__ == "__main__":
-    dst_path = "data/hamada.jpeg"
+    # dst_path = "data/hamada.jpeg"
+    dst_path = "data/baby_sad.jpeg"
     with open(dst_path, "rb") as image_file:
         data = base64.b64encode(image_file.read())
     print(emotion_estimate(data))
