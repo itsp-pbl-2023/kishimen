@@ -25,7 +25,7 @@ async def root(image: Image, user_id: Union[str, None] = Cookie(default=None)):
     emotion = emotion_estimate(image.img)
     if user_id is not None:
         for _, meeting in meeting_map.items():
-            for usr_id, _ in meeting:
+            for usr_id in meeting.keys():
                 if usr_id == user_id:
                     meeting[usr_id] = emotion
     return emotion

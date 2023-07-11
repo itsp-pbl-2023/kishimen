@@ -3,13 +3,13 @@
     <div class="flex-container">
       <div class="left-side">
         <button
+          v-for="(menu, idx) in start_menus"
+          :key="idx"
           class="btn new-btn"
+          :style="{ backgroundColor: menu.btn_color, color: menu.text_color }"
           @mouseover="btnOver(menu)"
           @mouseleave="btnLeave(menu)"
           @click="goPage(menu.page)"
-          :style="{ backgroundColor: menu.btn_color, color: menu.text_color }"
-          v-for="(menu, idx) in start_menus"
-          :key="idx"
         >
           {{ menu.titel }}
         </button>
@@ -26,9 +26,12 @@
 </template>
 
 <script setup lang="ts">
-import type internal from 'stream'
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { CreateMeeting } from '/@/api/index'
+import { useUserStore } from '/@/store/index'
+
+const user_store = useUserStore()
 
 const colors = {
   team_color: '#ff971d',
@@ -67,7 +70,17 @@ const btnLeave = (menu: StartMenu) => {
   menu.btn_color = colors.white
   menu.text_color = colors.black
 }
-const goPage = (page: string) => {
+const goPage = async (page: string) => {
+  if (page === 'create-meeting') {
+    await CreateMeeting()
+      .then(res => {
+        user_store.set_meeting(res.key)
+        user_store.set_host()
+      })
+      .catch(err => {
+        throw err
+      })
+  }
   router.push(page)
 }
 </script>

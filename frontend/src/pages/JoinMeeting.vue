@@ -1,27 +1,32 @@
 <template>
   <div class="container">
     <div class="create-container">
-        <input class="id-input" type="text" placeholder="Meeting ID" :value="meeting_id">
-        <button
-            class="btn"
-            @mouseover="btnOver"
-            @mouseleave="btnLeave"
-            @click="goMainpage"
-            :style="{ backgroundColor: btn_color, color: text_color }"
+      <input
+        v-model="meeting_id"
+        class="id-input"
+        type="text"
+        placeholder="Meeting ID"
+      />
+      <button
+        :style="{ backgroundColor: btn_color, color: text_color }"
+        class="btn"
+        @mouseover="btnOver"
+        @mouseleave="btnLeave"
+        @click="goMainpage"
+      >
+        ミーティングに参加
+      </button>
+      <div class="top-container">
+        <span
+          :style="{ color: top_page_color }"
+          class="top-page"
+          @click="goTopPage"
+          @mouseover="top_page_color = colors.black"
+          @mouseleave="top_page_color = colors.gray"
         >
-            ミーティングに参加
-        </button>
-        <div class="top-container">
-          <span
-            class="top-page" 
-            @click="goTopPage"
-            @mouseover="top_page_color = colors.black"
-            @mouseleave="top_page_color = colors.gray"
-            :style="{ color: top_page_color }"
-          >
-            Top page
-          </span>
-        </div>
+          Top page
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +34,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { JoinMeeting } from '/@/api/index'
+import { useUserStore } from '/@/store/index'
 
 const colors = {
   team_color: '#ff971d',
@@ -39,11 +46,11 @@ const colors = {
 
 let btn_color = ref<string>(colors.white)
 let text_color = ref<string>(colors.black)
-let meeting_id = ref<string>()
+const meeting_id = ref<string>('')
 let top_page_color = ref(colors.gray)
 
-
 const router = useRouter()
+const user_store = useUserStore()
 
 const btnOver = () => {
   btn_color.value = colors.team_color
@@ -54,6 +61,17 @@ const btnLeave = () => {
   text_color.value = colors.black
 }
 const goMainpage = () => {
+  if (meeting_id.value === '') {
+    alert('Meeting IDが入力されていません')
+    return
+  }
+  JoinMeeting(meeting_id.value)
+    .then(res => {
+      user_store.set_meeting(meeting_id.value)
+    })
+    .catch(err => {
+      throw err
+    })
   router.push('main')
 }
 const goTopPage = () => {
@@ -64,7 +82,7 @@ const goTopPage = () => {
 <style lang="scss">
 input {
   all: unset;
-  }
+}
 .container {
   width: 100vw;
   height: 100vh;

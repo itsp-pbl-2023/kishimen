@@ -1,34 +1,50 @@
 <template>
   <div class="container">
     <div class="create-container">
-        <input class="id-input" type="text" placeholder="Meeting ID" :value="meeting_id">
-        <button
-            class="btn"
-            @mouseover="btnOver"
-            @mouseleave="btnLeave"
-            @click="goMainpage"
-            :style="{ backgroundColor: btn_color, color: text_color }"
+      <div
+        class="meeting-key"
+        @click="copyToClipboard"
+        @mouseover="showPopup = true"
+        @mouseleave="leavePopup"
+        @mousemove="updatePopupPosition"
+      >
+        <span>{{ meeting_key }}</span>
+      </div>
+      <div
+        v-if="showPopup"
+        class="popup"
+        :style="{ top: popupTop + 'px', left: popupLeft + 'px' }"
+      >
+        {{ copy_text }}
+      </div>
+      <button
+        class="btn"
+        :style="{ backgroundColor: btn_color, color: text_color }"
+        @mouseover="btnOver"
+        @mouseleave="btnLeave"
+        @click="goMainpage"
+      >
+        ミーティングを作成
+      </button>
+      <div class="top-container">
+        <span
+          class="top-page"
+          :style="{ color: top_page_color }"
+          @click="goTopPage"
+          @mouseover="top_page_color = colors.black"
+          @mouseleave="top_page_color = colors.gray"
         >
-            ミーティングを作成
-        </button>
-        <div class="top-container">
-          <span
-            class="top-page" 
-            @click="goTopPage"
-            @mouseover="top_page_color = colors.black"
-            @mouseleave="top_page_color = colors.gray"
-            :style="{ color: top_page_color }"
-          >
-            Top page
-          </span>
-        </div>
+          Top page
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '/@/store/index'
 
 const colors = {
   team_color: '#ff971d',
@@ -41,9 +57,36 @@ let btn_color = ref<string>(colors.white)
 let text_color = ref<string>(colors.black)
 let meeting_id = ref<string>()
 let top_page_color = ref(colors.gray)
+let meeting_key = ref<string>('')
+let copy_text = ref<string>('コピー')
 
+const showPopup = ref(false)
+const popupTop = ref(0)
+const popupLeft = ref(0)
 
 const router = useRouter()
+const user_store = useUserStore()
+
+onMounted(() => {
+  meeting_key.value = user_store.get_meeting_key
+})
+
+const copyToClipboard = () => {
+  copy_text.value = 'コピーしました'
+  navigator.clipboard.writeText(meeting_key.value).catch(err => {
+    throw err
+  })
+}
+
+const updatePopupPosition = (event: MouseEvent) => {
+  popupTop.value = event.clientY - 40 // カーソルの縦位置に応じて調整
+  popupLeft.value = event.clientX + 10 // カーソルの横位置に応じて調整
+}
+
+const leavePopup = () => {
+  copy_text.value = 'コピー'
+  showPopup.value = false
+}
 
 const btnOver = () => {
   btn_color.value = colors.team_color
@@ -64,7 +107,7 @@ const goTopPage = () => {
 <style lang="scss">
 input {
   all: unset;
-  }
+}
 .container {
   width: 100vw;
   height: 100vh;
@@ -111,6 +154,48 @@ input {
   border-color: black;
   transition: 0.5s;
   text-align: center;
+}
+.meeting-key {
+  position: relative;
+  margin-top: 15%;
+  width: 100%;
+  height: 20%;
+  font-size: 50px;
+  box-shadow: none;
+  border-style: solid;
+  border-radius: 30px;
+  border-color: black;
+  transition: 0.5s;
+  text-align: center;
+  cursor: default;
+}
+.meeting-key:hover {
+  background-color: rgba($color: #999, $alpha: 0.5);
+}
+.meeting-key span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.target-element {
+  width: 100%;
+  height: 100%;
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.popup {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 14px;
 }
 .btn {
   margin-top: 15%;
