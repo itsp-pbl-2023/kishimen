@@ -12,16 +12,16 @@
             </captured-video>
           </div>
           <div
-            v-for="i in image_list"
+            v-for="(img_str, i) in image_list"
             :key="i"
             :class="$style.video_box"
             :style="{ width: image_width }"
           >
-            {{ i }}
+            <img :style="{ width: w }" :src="img_str" alt="" />
           </div>
         </div>
 
-        <div :class="$style.emotion_bar">
+        <div v-if="user_store.get_is_host" :class="$style.emotion_bar">
           <h4>感情の重みづけ</h4>
           <div>
             Angry: <span id="value">{{ angry_weight }}</span>
@@ -187,18 +187,17 @@ import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
-import { ref } from 'vue'
-import { uploadImageToAPI, getEmotion } from '/@/api/index'
+import { onUpdated, ref } from 'vue'
+import { uploadImageToAPI, getEmotion, getFaceImage } from '/@/api/index'
 import { useMusicStore, useUserStore } from '/@/store/index'
 
 const showPopup = ref(false)
 const popupTop = ref(0)
 const popupLeft = ref(0)
 let copy_text = ref<string>('コピー')
-const image_list = ref(['test', 'test', 'test', 'test'])
-const image_width = ref(
-  (100 / Math.min(1 + image_list.value.length, 3)).toString() + '%'
-)
+const image_list = ref<string[]>([])
+let image_width = ref<string>('100%')
+let w = ref('100%')
 
 const store = useMusicStore()
 const user_store = useUserStore()
@@ -222,7 +221,7 @@ function selectMusic(obj: Emotion) {
   let max = -1
   let weight
   let emotion = 'angry' as keyof Emotion
-  ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
+  (Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
     if (key === 'angry') weight = angry_weight.value
     else if (key === 'disgust') weight = disgust_weight.value
     else if (key === 'fear') weight = fear_weight.value
@@ -260,6 +259,17 @@ async function doEmptionEstimate(newImageBase64: string) {
   imageBase64.value = newImageBase64
   uploadImage(newImageBase64)
   getAllEmotion()
+  if (user_store.get_is_host) {
+    let images = []
+    const res = await getFaceImage(user_store.get_meeting_key)
+    for (const img of res) {
+      let temp = 'data:image/png;base64,' + img
+      images.push(temp)
+    }
+    image_list.value = images
+    image_width.value =
+      (100 / Math.min(1 + image_list.value.length, 3)).toString() + '%'
+  }
 }
 
 async function uploadImage(newImageBase64: string) {
@@ -432,6 +442,7 @@ input[type='range' i] {
 }
 
 .emotion_bar {
+  margin-left: 20px;
   padding: 10px;
   flex-direction: column;
   text-align: center;
@@ -455,12 +466,17 @@ input[type='range' i] {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.member_image {
+  object-fit: contain;
+  // width: auto;
+}
 .video_box {
   // width: 100px;
-  height: auto;
+  // height: 100%;
   // flex-grow: 1;
   background-color: white;
   // border: solid black 1px;
+  // object-fit: contain;
 }
 .meeting_key {
   display: inline-block;
@@ -471,7 +487,7 @@ input[type='range' i] {
   box-shadow: none;
   border-style: solid;
   border-radius: 30px;
-  border-color: black;
+  border-color: white;
   transition: 0.5s;
   text-align: center;
   cursor: default;
