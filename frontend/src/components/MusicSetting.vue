@@ -8,7 +8,11 @@
       <p :class="$style.content_text">{{ content }}</p>
     </div>
     <div :class="$style.right">
-      <select :class="$style.pulldown" @change="change_handler(key)">
+      <select
+        :class="$style.pulldown"
+        :value="get_music(key)"
+        @change="change_handler(key)"
+      >
         <option v-for="music in musicList" :key="music.url" :value="music.url">
           {{ music.name }}
         </option>
@@ -35,6 +39,25 @@ const emotionList = {
   sad: 'Sad',
   surprise: 'Surprise',
   neutral: 'Neutral'
+}
+
+const get_music = (key: keyof typeof emotionList) => {
+  switch (key) {
+    case 'angry':
+      return store.get_music_angry
+    case 'disgust':
+      return store.get_music_disgust
+    case 'fear':
+      return store.get_music_fear
+    case 'happy':
+      return store.get_music_happy
+    case 'sad':
+      return store.get_music_sad
+    case 'surprise':
+      return store.get_music_surprise
+    case 'neutral':
+      return store.get_music_neutral
+  }
 }
 
 const change_handler = (key: keyof typeof emotionList) => {

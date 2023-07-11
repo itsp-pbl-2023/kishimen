@@ -14,7 +14,9 @@
   right: 0;
   width: 100%;
   height: 100%;
+  display: inline;
   padding-bottom: env(safe-area-inset-bottom);
+  overflow: auto;
 }
 .upperbar {
   width: 100%;

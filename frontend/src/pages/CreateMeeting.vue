@@ -1,24 +1,9 @@
 <template>
-  <div class="container">
-    <div class="create-container">
-      <div
-        class="meeting-key"
-        @click="copyToClipboard"
-        @mouseover="showPopup = true"
-        @mouseleave="leavePopup"
-        @mousemove="updatePopupPosition"
-      >
-        <span>{{ meeting_key }}</span>
-      </div>
-      <div
-        v-if="showPopup"
-        class="popup"
-        :style="{ top: popupTop + 'px', left: popupLeft + 'px' }"
-      >
-        {{ copy_text }}
-      </div>
+  <div :class="$style.container">
+    <div :class="$style['create-container']">
+      <music-setting />
       <button
-        class="btn"
+        :class="$style.btn"
         :style="{ backgroundColor: btn_color, color: text_color }"
         @mouseover="btnOver"
         @mouseleave="btnLeave"
@@ -26,9 +11,9 @@
       >
         ミーティングを作成
       </button>
-      <div class="top-container">
+      <div :class="$style['top-container']">
         <span
-          class="top-page"
+          :class="$style['top-page']"
           :style="{ color: top_page_color }"
           @click="goTopPage"
           @mouseover="top_page_color = colors.black"
@@ -45,6 +30,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '/@/store/index'
+import MusicSetting from '/@/components/MusicSetting.vue'
 
 const colors = {
   team_color: '#ff971d',
@@ -71,23 +57,6 @@ onMounted(() => {
   meeting_key.value = user_store.get_meeting_key
 })
 
-const copyToClipboard = () => {
-  copy_text.value = 'コピーしました'
-  navigator.clipboard.writeText(meeting_key.value).catch(err => {
-    throw err
-  })
-}
-
-const updatePopupPosition = (event: MouseEvent) => {
-  popupTop.value = event.clientY - 40 // カーソルの縦位置に応じて調整
-  popupLeft.value = event.clientX + 10 // カーソルの横位置に応じて調整
-}
-
-const leavePopup = () => {
-  copy_text.value = 'コピー'
-  showPopup.value = false
-}
-
 const btnOver = () => {
   btn_color.value = colors.team_color
   text_color.value = colors.white
@@ -104,7 +73,7 @@ const goTopPage = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 input {
   all: unset;
 }
@@ -122,9 +91,8 @@ input {
 
 .create-container {
   margin: auto;
-  padding: 5% 0 5% 0;
+  padding: 2% 0 2% 0;
   width: 45%;
-  height: 90%;
 }
 .right-side {
   padding: 5% 0 5% 0;
@@ -198,7 +166,7 @@ input {
   font-size: 14px;
 }
 .btn {
-  margin-top: 15%;
+  margin-top: 2%;
   width: 100%;
   height: 20%;
   font-size: 50px;
