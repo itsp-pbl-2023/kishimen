@@ -202,8 +202,8 @@ let w = ref('100%')
 const store = useMusicStore()
 const user_store = useUserStore()
 
-let imageBase64 = ref<string>()
-let musicURL = ref<string>()
+let imageBase64 = ref<string>("")
+let musicURL = ref<string>("")
 
 const bottunState = ref('stop')
 const music = ref<HTMLAudioElement>()
