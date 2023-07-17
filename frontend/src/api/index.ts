@@ -87,3 +87,20 @@ export const getEmotion = async (meeting_key: string) => {
       throw err
     })
 }
+export const getFaceImage = async (meeting_key: string) => {
+  const url = API_URL + 'meeting/' + meeting_key + '/images'
+
+  return await fetch(url, {
+    mode: 'cors',
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => {
+      return response.json() as Promise<string[]>
+    })
+    .catch(err => {
+      throw err
+    })
+}

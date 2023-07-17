@@ -138,7 +138,7 @@ input {
   cursor: default;
 }
 .meeting-key:hover {
-  background-color: rgba($color: #999, $alpha: 0.5);
+  background-color: rgba($color: #fff, $alpha: 0.8);
 }
 .meeting-key span {
   position: absolute;

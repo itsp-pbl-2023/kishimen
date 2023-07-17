@@ -1,53 +1,147 @@
 <template>
   <div :class="$style.container">
     <div :class="$style.content">
-      <div :class="$style.video_box">
-        <captured-video
-          @capture="(newImageBase64: string) => {
-            doEmptionEstimate(newImageBase64)
-          }"
-        >
-        </captured-video>
+      <div :class="$style.middile_container">
+        <div :class="$style.video_container">
+          <div :class="$style.video_box" :style="{ width: image_width }">
+            <captured-video
+              @capture="(newImageBase64: string) => {
+                doEmptionEstimate(newImageBase64)
+              }"
+            >
+            </captured-video>
+          </div>
+          <div
+            v-for="(img_str, i) in image_list"
+            :key="i"
+            :class="$style.video_box"
+            :style="{ width: image_width }"
+          >
+            <img :style="{ width: w }" :src="img_str" alt="" />
+          </div>
+        </div>
+
+        <div v-if="user_store.get_is_host" :class="$style.emotion_bar">
+          <h4>感情の重みづけ</h4>
+          <div>
+            Angry: <span id="value">{{ angry_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_angry"
+          />
+          <div>
+            Disgust: <span id="value">{{ disgust_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_disgust"
+          />
+          <div>
+            Fear: <span id="value">{{ fear_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_fear"
+          />
+          <div>
+            Happy: <span id="value">{{ happy_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_happy"
+          />
+          <div>
+            Sad: <span id="value">{{ sad_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_sad"
+          />
+          <div>
+            Surprise: <span id="value">{{ surprise_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_surprise"
+          />
+          <div>
+            Neutral: <span id="value">{{ neutral_weight }}</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            @change="change_neutral"
+          />
+        </div>
       </div>
       <div :class="$style.under_stick">
         <p :class="$style.content_text">音楽名:</p>
+        <div :class="$style.bbs_container">
+          <div :class="$style.bbs">
+            <ul>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+            </ul>
 
-        <div :class="$style.bbs">
-          <ul>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-          </ul>
+            <ul>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+            </ul>
 
-          <ul>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-          </ul>
-
-          <ul>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-            <li></li>
-            <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
-          </ul>
+            <ul>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+              <li></li>
+              <li>{{ musics[musicURL]?.name ?? musicURL }}</li>
+            </ul>
+          </div>
         </div>
 
         <img
@@ -57,6 +151,22 @@
           alt="再生ボタン"
           @click="clickBottun"
         />
+        <span
+          v-if="user_store.get_is_host"
+          :class="$style.meeting_key"
+          @click="copyToClipboard"
+          @mouseover="showPopup = true"
+          @mouseleave="leavePopup"
+          @mousemove="updatePopupPosition"
+          >{{ user_store.get_meeting_key }}</span
+        >
+        <div
+          v-if="showPopup"
+          :class="$style.popup"
+          :style="{ top: popupTop + 'px', left: popupLeft + 'px' }"
+        >
+          {{ copy_text }}
+        </div>
         <audio
           v-if="user_store.get_is_host"
           id="myAudio"
@@ -70,97 +180,6 @@
         <span :class="$style.space_padding"></span>
       </div>
     </div>
-
-    <div
-      style="
-        display: flex;
-        padding: 10px;
-        flex-direction: column;
-        text-align: center;
-        margin-left: 30px;
-        border: 1px solid #333333;
-        border-radius: 10px;
-      "
-    >
-      <h4>感情の重みづけ</h4>
-      <div>
-        Angry: <span id="value">{{ angry_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_angry"
-      />
-      <div>
-        Disgust: <span id="value">{{ disgust_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_disgust"
-      />
-      <div>
-        Fear: <span id="value">{{ fear_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_fear"
-      />
-      <div>
-        Happy: <span id="value">{{ happy_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_happy"
-      />
-      <div>
-        Sad: <span id="value">{{ sad_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_sad"
-      />
-      <div>
-        Surprise: <span id="value">{{ surprise_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_surprise"
-      />
-      <div>
-        Neutral: <span id="value">{{ neutral_weight }}</span>
-      </div>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        @change="change_neutral"
-      />
-    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -168,15 +187,23 @@ import CapturedVideo from '/@/components/CapturedVideo.vue'
 import type { Emotion } from '/@/api/index'
 import { musics } from '/@/assets/musics'
 
-import { ref } from 'vue'
-import { uploadImageToAPI, getEmotion } from '/@/api/index'
+import { onUpdated, ref } from 'vue'
+import { uploadImageToAPI, getEmotion, getFaceImage } from '/@/api/index'
 import { useMusicStore, useUserStore } from '/@/store/index'
+
+const showPopup = ref(false)
+const popupTop = ref(0)
+const popupLeft = ref(0)
+let copy_text = ref<string>('コピー')
+const image_list = ref<string[]>([])
+let image_width = ref<string>('100%')
+let w = ref('100%')
 
 const store = useMusicStore()
 const user_store = useUserStore()
 
-let imageBase64 = ref<string>()
-let musicURL = ref<string>()
+let imageBase64 = ref<string>("")
+let musicURL = ref<string>("")
 
 const bottunState = ref('stop')
 const music = ref<HTMLAudioElement>()
@@ -194,7 +221,7 @@ function selectMusic(obj: Emotion) {
   let max = -1
   let weight
   let emotion = 'angry' as keyof Emotion
-  ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
+  (Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
     if (key === 'angry') weight = angry_weight.value
     else if (key === 'disgust') weight = disgust_weight.value
     else if (key === 'fear') weight = fear_weight.value
@@ -232,6 +259,17 @@ async function doEmptionEstimate(newImageBase64: string) {
   imageBase64.value = newImageBase64
   uploadImage(newImageBase64)
   getAllEmotion()
+  if (user_store.get_is_host) {
+    let images = []
+    const res = await getFaceImage(user_store.get_meeting_key)
+    for (const img of res) {
+      let temp = 'data:image/png;base64,' + img
+      images.push(temp)
+    }
+    image_list.value = images
+    image_width.value =
+      (100 / Math.min(1 + image_list.value.length, 3)).toString() + '%'
+  }
 }
 
 async function uploadImage(newImageBase64: string) {
@@ -285,6 +323,23 @@ const change_surprise = (event: any) => {
 const change_neutral = (event: any) => {
   neutral_weight.value = event.target.value
 }
+
+const copyToClipboard = () => {
+  copy_text.value = 'コピーしました'
+  navigator.clipboard.writeText(user_store.get_meeting_key).catch(err => {
+    throw err
+  })
+}
+
+const updatePopupPosition = (event: MouseEvent) => {
+  popupTop.value = event.clientY - 100 // カーソルの縦位置に応じて調整
+  popupLeft.value = event.clientX - 10 // カーソルの横位置に応じて調整
+}
+
+const leavePopup = () => {
+  copy_text.value = 'コピー'
+  showPopup.value = false
+}
 </script>
 
 <style lang="scss" module>
@@ -296,48 +351,65 @@ const change_neutral = (event: any) => {
   align-items: center;
 }
 .content {
-  width: 80%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 }
 .under_stick {
   background-color: orange;
-  height: 70px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-.video_box {
-  width: auto;
-  height: auto;
+  color: white;
+  height: 10%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  width: 100%;
+  position: relative;
+  bottom: 0;
 }
 .content_text {
+  display: inline-block;
   font-size: 2.5em;
   margin: 0 0 0 1em;
-  margin-left: -50px;
-  width: 300px;
+  // margin-left: -50px;
+  // width: 10%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translate(0, -50%);
 }
 .bottun_play {
+  display: inline-block;
   height: 65%;
   margin: 0 auto;
   margin-left: 45px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .space_padding {
   margin: 0 1em 0 0;
   width: 350px;
 }
-
+.bbs_container {
+  display: inline-block;
+  position: absolute;
+  width: 40%;
+  top: 55%;
+  left: 18%;
+  transform: translate(0, -50%);
+}
 .bbs {
-  align-items: center;
   display: flex;
+  align-items: center;
   height: 40px;
+  width: 60%;
   line-height: 40px;
   overflow: hidden;
-  width: 300px;
   white-space: nowrap;
-  margin-left: -70px;
+  // margin-left: -70px;
   z-index: 1;
 }
 .bbs ul {
@@ -367,5 +439,72 @@ input[type='range' i] {
   border: initial;
   margin: 2px;
   margin-bottom: 20px;
+}
+
+.emotion_bar {
+  margin-left: 20px;
+  padding: 10px;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  background-color: white;
+}
+.middile_container {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 78%;
+  margin: auto;
+  background-color: white;
+}
+.video_container {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  align-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.member_image {
+  object-fit: contain;
+  // width: auto;
+}
+.video_box {
+  // width: 100px;
+  // height: 100%;
+  // flex-grow: 1;
+  background-color: white;
+  // border: solid black 1px;
+  // object-fit: contain;
+}
+.meeting_key {
+  display: inline-block;
+  // margin-top: 15%;
+  width: 20%;
+  // height: 20%;
+  font-size: 30px;
+  box-shadow: none;
+  border-style: solid;
+  border-radius: 30px;
+  border-color: white;
+  transition: 0.5s;
+  text-align: center;
+  cursor: default;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(0, -50%);
+  // width: 100%;
+}
+.meeting_key:hover {
+  background-color: rgba($color: #999, $alpha: 0.5);
+}
+.popup {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 14px;
 }
 </style>
