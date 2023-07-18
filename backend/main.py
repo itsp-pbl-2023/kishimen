@@ -135,7 +135,7 @@ async def get_images(key: str, user_id: Union[str, None] = Cookie(default=None))
 
     result = []
     meeting = meeting_map[key]
-    for usr_id, user in meeting.values():
+    for usr_id, user in meeting.items():
         if usr_id != user_id and "image" in user and user["image"] is not None:
             result.append(user["image"])
 
