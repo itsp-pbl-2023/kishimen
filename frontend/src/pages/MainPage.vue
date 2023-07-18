@@ -103,7 +103,9 @@
         </div>
       </div>
       <div :class="$style.under_stick">
-        <p :class="$style.content_text">音楽名:</p>
+        <p v-if="user_store.get_is_host" :class="$style.content_text">
+          音楽名:
+        </p>
         <div :class="$style.bbs_container">
           <div :class="$style.bbs">
             <ul>
