@@ -202,8 +202,8 @@ let w = ref('100%')
 const store = useMusicStore()
 const user_store = useUserStore()
 
-let imageBase64 = ref<string>("")
-let musicURL = ref<string>("")
+let imageBase64 = ref<string>('')
+let musicURL = ref<string>('')
 
 const bottunState = ref('stop')
 const music = ref<HTMLAudioElement>()
@@ -221,7 +221,7 @@ function selectMusic(obj: Emotion) {
   let max = -1
   let weight
   let emotion = 'angry' as keyof Emotion
-  (Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
+  ;(Object.keys(obj) as (keyof Emotion)[]).forEach(key => {
     if (key === 'angry') weight = angry_weight.value
     else if (key === 'disgust') weight = disgust_weight.value
     else if (key === 'fear') weight = fear_weight.value
@@ -332,8 +332,8 @@ const copyToClipboard = () => {
 }
 
 const updatePopupPosition = (event: MouseEvent) => {
-  popupTop.value = event.clientY - 100 // カーソルの縦位置に応じて調整
-  popupLeft.value = event.clientX - 10 // カーソルの横位置に応じて調整
+  popupTop.value = event.clientY - 800 // カーソルの縦位置に応じて調整
+  popupLeft.value = event.clientX // カーソルの横位置に応じて調整
 }
 
 const leavePopup = () => {
@@ -503,6 +503,7 @@ input[type='range' i] {
 .popup {
   position: absolute;
   background-color: white;
+  color: black;
   padding: 10px;
   border: 1px solid black;
   font-size: 14px;

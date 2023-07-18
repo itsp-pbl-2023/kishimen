@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.app">
     <div :class="$style.upperbar">
-      <h1 :class="$style.kishimen">KISHIMEN</h1>
+      <h1 :class="$style.kishimen">MEETING MELODY</h1>
     </div>
     <router-view />
   </div>
